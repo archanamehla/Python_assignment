@@ -1,0 +1,23 @@
+#version: '3'
+
+services:
+  python-app:
+    build: .
+    container_name: etl-python-assignment
+    volumes:
+      - .:/app
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/admin
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - data:/data/db
+
+volumes:
+  data:
